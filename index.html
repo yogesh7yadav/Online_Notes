@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>School Notes</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    const chapters = {
+      std7: {
+        english: ["Chapter 1", "Chapter 2", "Chapter 3"],
+        maths: ["Numbers", "Fractions", "Geometry"],
+        science: ["Plants", "Animals", "Water"],
+        hindi: ["Kavita", "Kahani", "Vyakaran"],
+        marathi: ["Lekhan", "Natak", "Nibandh"]
+      },
+      std8: {
+        english: ["Grammar", "Essay", "Poem"],
+maths: [
+  "1: Rational and Irrational Numbers",
+  "2: Parallel Lines and Transversals",
+  "3: Indices and Cube Root",
+  "4: Altitudes and Medians of a Triangle",
+  "5: Expansion Formulae",
+  "6: Factorisation of Algebraic Expressions",
+  "7: Variation",
+  "8: Quadrilateral: Constructions and Types",
+  "9: Discount and Commission",
+  "10: Division of Polynomials",
+  "11: Statistics",
+  "12: Equations in One Variable",
+  "13: Congruence of Triangles",
+  "14: Compound Interest",
+  "15: Area",
+  "16: Surface Area and Volume",
+  "17: Circle: Chord and Arc"
+],
+        science: ["Force", "Light", "Sound"],
+        hindi: ["Nibandh", "Kahani", "Kavita"],
+        marathi: ["Natak", "Nibandh", "Vakprachar"]
+      },
+      std9: {
+        english: ["Reading", "Writing", "Literature"],
+        maths: ["Polynomials", "Linear Eq.", "Probability"],
+        science: ["Atoms", "Motion", "Heat"],
+        hindi: ["Vyakaran", "Kahani", "Nibandh"],
+        marathi: ["Padhya", "Gadya", "Nibandh"]
+      },
+      std10: {
+        english: ["Speech", "Report", "Essay"],
+        maths: ["Trigonometry", "Statistics", "Geometry"],
+        science: ["1. Gravitation", "2. Periodic Classification of Element", "3. Chemical Reactions and Equations", "4. Effects of Electric Current", "5. Heat", "6. Refraction of Light", "7. Lenses", "8. Metallurgy", "9. Carbon Compounds", "10. Space Missions" ],
+		hindi: ["Kavita", "Nibandh", "Vyakaran"],
+        marathi: ["Kavita", "Nibandh", "Vyakaran"]
+      }
+    };
+
+    function updateChapters() {
+      const std = document.getElementById("std").value;
+      const subject = document.getElementById("subject").value;
+      const chapterSelect = document.getElementById("chapter");
+      chapterSelect.innerHTML = '<option value="">--Choose Chapter--</option>';
+
+      if (std && subject) {
+        const chapList = chapters[std][subject];
+        chapList.forEach((chap, i) => {
+          const option = document.createElement("option");
+          option.value = `chapter${i + 1}`; // filename: chapter1.pdf, etc.
+          option.text = chap;
+          chapterSelect.appendChild(option);
+        });
+      }
+
+      document.getElementById("downloadLink").style.display = "none";
+    }
+
+    function showLink() {
+      const std = document.getElementById("std").value;
+      const subject = document.getElementById("subject").value;
+      const chapter = document.getElementById("chapter").value;
+      const link = document.getElementById("downloadLink");
+
+      if (std && subject && chapter) {
+        const filePath = `notes/${std}/${subject}/${chapter}.pdf`;
+        link.href = filePath;
+        link.style.display = "inline";
+        link.innerText = `Download ${chapter.replace('chapter', 'Chapter ')} PDF for ${subject.toUpperCase()} - ${std.toUpperCase()}`;
+      } else {
+        link.style.display = "none";
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Welcome to My Notes Website</h1>
+
+  <label for="std">Select Class:</label>
+  <select id="std" onchange="updateChapters(); showLink();">
+    <option value="">--Choose Class--</option>
+    <option value="std7">Std 7</option>
+    <option value="std8">Std 8</option>
+    <option value="std9">Std 9</option>
+    <option value="std10">Std 10</option>
+  </select>
+
+  <label for="subject">Select Subject:</label>
+  <select id="subject" onchange="updateChapters(); showLink();">
+    <option value="">--Choose Subject--</option>
+    <option value="english">English</option>
+    <option value="marathi">Marathi</option>
+    <option value="hindi">Hindi</option>
+    <option value="maths">Maths</option>
+    <option value="science">Science</option>
+  </select>
+
+  <label for="chapter">Select Chapter:</label>
+  <select id="chapter" onchange="showLink()">
+    <option value="">--Choose Chapter--</option>
+  </select>
+
+  <p><a id="downloadLink" href="#" style="display:none;" download></a></p>
+</body>
+</html>
