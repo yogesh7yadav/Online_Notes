@@ -14,25 +14,25 @@
       },
       std8: {
         english: ["Grammar", "Essay", "Poem"],
-maths: [
-  "1: Rational and Irrational Numbers",
-  "2: Parallel Lines and Transversals",
-  "3: Indices and Cube Root",
-  "4: Altitudes and Medians of a Triangle",
-  "5: Expansion Formulae",
-  "6: Factorisation of Algebraic Expressions",
-  "7: Variation",
-  "8: Quadrilateral: Constructions and Types",
-  "9: Discount and Commission",
-  "10: Division of Polynomials",
-  "11: Statistics",
-  "12: Equations in One Variable",
-  "13: Congruence of Triangles",
-  "14: Compound Interest",
-  "15: Area",
-  "16: Surface Area and Volume",
-  "17: Circle: Chord and Arc"
-],
+        maths: [
+          "1: Rational and Irrational Numbers",
+          "2: Parallel Lines and Transversals",
+          "3: Indices and Cube Root",
+          "4: Altitudes and Medians of a Triangle",
+          "5: Expansion Formulae",
+          "6: Factorisation of Algebraic Expressions",
+          "7: Variation",
+          "8: Quadrilateral: Constructions and Types",
+          "9: Discount and Commission",
+          "10: Division of Polynomials",
+          "11: Statistics",
+          "12: Equations in One Variable",
+          "13: Congruence of Triangles",
+          "14: Compound Interest",
+          "15: Area",
+          "16: Surface Area and Volume",
+          "17: Circle: Chord and Arc"
+        ],
         science: ["Force", "Light", "Sound"],
         hindi: ["Nibandh", "Kahani", "Kavita"],
         marathi: ["Natak", "Nibandh", "Vakprachar"]
@@ -47,8 +47,19 @@ maths: [
       std10: {
         english: ["Speech", "Report", "Essay"],
         maths: ["Trigonometry", "Statistics", "Geometry"],
-        science: ["1. Gravitation", "2. Periodic Classification of Element", "3. Chemical Reactions and Equations", "4. Effects of Electric Current", "5. Heat", "6. Refraction of Light", "7. Lenses", "8. Metallurgy", "9. Carbon Compounds", "10. Space Missions" ],
-		hindi: ["Kavita", "Nibandh", "Vyakaran"],
+        science: [
+          "1: Gravitation",
+          "2: Periodic Classification of Element",
+          "3: Chemical Reactions and Equations",
+          "4: Effects of Electric Current",
+          "5: Heat",
+          "6: Refraction of Light",
+          "7: Lenses",
+          "8: Metallurgy",
+          "9: Carbon Compounds",
+          "10: Space Missions"
+        ],
+        hindi: ["Kavita", "Nibandh", "Vyakaran"],
         marathi: ["Kavita", "Nibandh", "Vyakaran"]
       }
     };
@@ -69,22 +80,26 @@ maths: [
         });
       }
 
-      document.getElementById("downloadLink").style.display = "none";
+      document.getElementById("links").style.display = "none";
     }
 
     function showLink() {
       const std = document.getElementById("std").value;
       const subject = document.getElementById("subject").value;
       const chapter = document.getElementById("chapter").value;
-      const link = document.getElementById("downloadLink");
+      const viewLink = document.getElementById("viewLink");
+      const downloadLink = document.getElementById("downloadLink");
+      const links = document.getElementById("links");
 
       if (std && subject && chapter) {
         const filePath = `notes/${std}/${subject}/${chapter}.pdf`;
-        link.href = filePath;
-        link.style.display = "inline";
-        link.innerText = `Download ${chapter.replace('chapter', 'Chapter ')} PDF for ${subject.toUpperCase()} - ${std.toUpperCase()}`;
+        viewLink.href = filePath;
+        downloadLink.href = filePath;
+
+        downloadLink.innerText = `⬇️ Download ${chapter.replace('chapter', 'Chapter ')} PDF`;
+        links.style.display = "block";
       } else {
-        link.style.display = "none";
+        links.style.display = "none";
       }
     }
   </script>
@@ -116,6 +131,9 @@ maths: [
     <option value="">--Choose Chapter--</option>
   </select>
 
-  <p><a id="downloadLink" href="#" style="display:none;" download></a></p>
+  <p id="links" style="display:none;">
+    <a id="viewLink" href="#" target="_blank">📖 View PDF</a> |
+    <a id="downloadLink" href="#" download>⬇️ Download PDF</a>
+  </p>
 </body>
 </html>
